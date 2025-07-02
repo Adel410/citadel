@@ -6,8 +6,8 @@ import Navigation from './components/Navigation'
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "CITADEL - La forteresse numérique de votre entreprise",
-  description: "Protection avancée contre les cybermenaces modernes",
+  title: "CITADEL - Votre Bouclier Numérique de Confiance",
+  description: "Solutions de cybersécurité sur mesure pour protéger votre entreprise contre les cybermenaces les plus sophistiquées.",
 };
 
 export default function RootLayout({
@@ -17,9 +17,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr">
-      <body className={`${inter.className} bg-slate-900 text-slate-100`}>
+      <body className={`${inter.className} bg-white text-slate-900`}>
         <Navigation />
-        {children}
+        <div className="pt-16">
+          {children}
+        </div>
       </body>
     </html>
   );
