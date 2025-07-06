@@ -2,70 +2,96 @@
 
 interface Service {
   id: number
-  name: string
-  description: string
-  price: string
-  category: string
+  title: string
+  points: string[]
 }
 
 export default function Services() {
-  // Services par défaut
+  // Services selon l'image de référence
   const services: Service[] = [
     {
       id: 1,
-      name: "Audit de Sécurité",
-      description: "Évaluation complète de votre infrastructure avec identification des vulnérabilités critiques et plan d'action détaillé.",
-      price: "2,500€",
-      category: "Audit"
+      title: "Audit de sécurité initial",
+      points: [
+        "Analyse des postes, réseau, système, RGPD, accès, sauvegardes",
+        "Rapport synthétique de vulnérabilités et non-conformités",
+        "Recommandations priorisées"
+      ]
     },
     {
       id: 2,
-      name: "Protection des Données",
-      description: "Chiffrement avancé, sauvegarde sécurisée et mise en conformité RGPD pour protéger vos données sensibles.",
-      price: "1,800€/mois",
-      category: "Protection"
+      title: "Mise en conformité de base",
+      points: [
+        "Mise à jour des systèmes (Windows, logiciels)",
+        "Installation ou renforcement antivirus/EDR",
+        "Mise en place d'un pare-feu (matériel ou logiciel)",
+        "Activation du MFA (authentification à deux facteurs)",
+        "Gestion des droits et des accès"
+      ]
     },
     {
       id: 3,
-      name: "Surveillance Continue",
-      description: "Monitoring 24/7 de votre infrastructure avec détection proactive des menaces et intervention rapide.",
-      price: "2,200€/mois",
-      category: "Surveillance"
+      title: "Test de hacking éthique",
+      points: [
+        "Analyse réseau approfondie (scan de ports, services)",
+        "Pentest externe (si exposition Internet)",
+        "Simulation de phishing",
+        "Scan de vulnérabilités automatisé",
+        "Rapport technique détaillé avec plan de remédiation"
+      ]
     },
     {
       id: 4,
-      name: "Réponse aux Incidents",
-      description: "Intervention d'urgence pour contenir les menaces, analyser les incidents et restaurer vos systèmes.",
-      price: "3,500€/incident",
-      category: "Urgence"
+      title: "Formation du personnel",
+      points: [
+        "Formation à la cyberhygiène (PC, email, web, mots de passe)",
+        "Formation anti-phishing (sensibilisation + test simulé)",
+        "Bonnes pratiques pour dirigeants et salariés",
+        "Livrets et documents pédagogiques fournis"
+      ]
     },
     {
       id: 5,
-      name: "Formation Sécurité",
-      description: "Programmes de sensibilisation personnalisés pour créer une culture de cybersécurité dans votre entreprise.",
-      price: "1,200€/jour",
-      category: "Formation"
+      title: "Mise en conformité RGPD & NIS2",
+      points: [
+        "Audit de conformité",
+        "Registre de traitements",
+        "Politique de confidentialité",
+        "DPO externalisé si besoin",
+        "Anticipation des obligations NIS2 (secteurs critiques)"
+      ]
     },
     {
       id: 6,
-      name: "Architecture Sécurisée",
-      description: "Conception et déploiement d'infrastructures résilientes avec sécurité intégrée dès la conception.",
-      price: "Sur devis",
-      category: "Conception"
+      title: "Surveillance continue (SOC) - PDIS",
+      points: [
+        "Surveillance active des postes et serveurs (via EDR)",
+        "Détection d'incidents en temps réel",
+        "Mises à jour et maintenance continue",
+        "Alertes et réponses immédiates en cas d'anomalie",
+        "Reporting mensuel"
+      ]
     },
     {
       id: 7,
-      name: "Tests de Pénétration",
-      description: "Simulation d'attaques réelles pour identifier les failles de sécurité avant les cybercriminels.",
-      price: "4,500€",
-      category: "Test"
+      title: "Cyberassurance",
+      points: [
+        "Estimation du risque résiduel",
+        "Préparation au dossier pour l'assureur",
+        "Mise en relation avec un assureur",
+        "Suivi du dossier et du contrat"
+      ]
     },
     {
       id: 8,
-      name: "Conformité Réglementaire",
-      description: "Mise en conformité avec les réglementations sectorielles (RGPD, PCI-DSS, ISO 27001, etc.).",
-      price: "2,800€/mois",
-      category: "Conformité"
+      title: "Réponse aux attaques - PRIS",
+      points: [
+        "Assistance immédiate en cas d'incident",
+        "Contre-mesures techniques : isolement, nettoyage",
+        "Analyse forensique simplifiée (origine, impact)",
+        "Reprise d'activité (plan de secours, restauration)",
+        "Rapport post-incident"
+      ]
     }
   ]
 
@@ -96,35 +122,33 @@ export default function Services() {
               Des solutions simples et efficaces pour protéger votre entreprise
             </p>
           </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
-            {services.map((service) => (
-              <div 
-                key={service.id} 
-                className="group bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md hover:border-blue-300 transition-all duration-300 hover:-translate-y-1"
-              >
-                <div className="mb-4">
-                  <span className="inline-block px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full mb-3">
-                    {service.category}
-                  </span>
-                  <h3 className="text-lg font-bold text-slate-900 group-hover:text-blue-800 transition-colors duration-300 mb-2">
-                    {service.name}
-                  </h3>
-                  <p className="text-sm text-gray-600 leading-relaxed mb-4">
-                    {service.description}
-                  </p>
+          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 border-4 rounded-4xl border-blue-800">
+            {services.map((service, idx) => {
+              const col = idx % 2;
+              const row = Math.floor(idx / 2);
+              const isBlue = (row % 2 === 0 && col === 0) || (row % 2 === 1 && col === 1);
+              // Arrondi haut si première ligne de la colonne, bas si dernière ligne de la colonne
+              const isFirstRow = row === 0;
+              const isLastRow = row === Math.floor((services.length - 1) / 2);
+              let rounded = '';
+              if (isFirstRow) rounded += col === 0 ? ' rounded-tl-3xl' : ' rounded-tr-3xl';
+              if (isLastRow) rounded += col === 0 ? ' rounded-bl-3xl' : ' rounded-br-3xl';
+              return (
+                <div
+                  key={service.id}
+                  className={`w-full ${isBlue ? 'bg-blue-800 text-white' : 'bg-white text-blue-900'}${rounded} transition-all duration-300 flex flex-col justify-start px-6 py-10 md:px-10 md:py-14`}
+                  style={{ minHeight: '220px' }}
+                >
+                  <div className={`text-3xl md:text-4xl font-extrabold mb-2 ${isBlue ? 'text-white/80' : 'text-blue-800/80'}`}>{service.id}</div>
+                  <h3 className={`font-bold text-xl md:text-2xl mb-3 ${isBlue ? 'text-white' : 'text-blue-900'}`}>{service.title}</h3>
+                  <ul className={`list-disc pl-5 space-y-2 ${isBlue ? 'text-white/90' : 'text-blue-900/90'}`}>
+                    {service.points.map((pt, idx2) => (
+                      <li key={idx2}>{pt}</li>
+                    ))}
+                  </ul>
                 </div>
-                
-                <div className="flex items-center justify-between">
-                  <div className="text-xl font-bold text-blue-600 group-hover:text-blue-700 transition-colors duration-300">
-                    {service.price}
-                  </div>
-                  <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-105 active:scale-95">
-                    Devis
-                  </button>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

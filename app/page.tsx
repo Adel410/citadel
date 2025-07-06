@@ -14,7 +14,7 @@ export default function Home() {
               CITADEL
             </h1>
             <h2 className="text-2xl lg:text-3xl font-light mb-8 text-blue-100">
-              Votre Bouclier Numérique de Confiance
+              La <span className='text-white bg-blue-600 px-2 py-1 rounded-md'>Forteresse</span> numérique de votre <span className='text-white bg-blue-600 px-2 py-1 rounded-md'>Entreprise</span> <small className='text-blue-100 text-sm'>TPE / PME</small>
             </h2>
             <p className="text-xl mb-12 text-gray-300 max-w-3xl mx-auto leading-relaxed">
               Nous protégeons votre entreprise contre les cybermenaces les plus sophistiquées avec des solutions de sécurité sur mesure et une expertise reconnue.

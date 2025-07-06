@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
+import Image from 'next/image'
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -21,7 +22,7 @@ export default function Navigation() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-            CITADEL
+            <Image src="/logo.jpeg" alt="Logo" width={200} height={200}  className='hover:scale-105 transition-all duration-300'/>
           </Link>
           
           {/* Desktop Navigation */}
