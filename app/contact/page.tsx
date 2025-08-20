@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -9,70 +10,74 @@ export default function Contact() {
     company: '',
     phone: '',
     service: '',
-    message: ''
+    message: '',
+    _gotcha: '' // honeypot anti-spam
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
 
+  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xeozblnl'
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    
-    setIsSubmitting(false)
-    setSubmitted(true)
+
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          company: formData.company,
+          phone: formData.phone,
+          service: formData.service,
+          message: formData.message,
+          _subject: `Contact – ${formData.service || 'Demande'}`,
+          _gotcha: formData._gotcha
+        })
+      })
+
+      if (!res.ok) throw new Error('send_failed')
+      setSubmitted(true)
+    } catch (err) {
+      alert("Erreur lors de l'envoi. Réessaie dans un instant.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }))
+    setFormData(prev => ({ ...prev, [name]: value }))
   }
 
   const contactInfo = [
     {
-      title: "Urgences Cybersécurité",
-      subtitle: "Disponible 24h/24, 7j/7",
-      value: "+33 1 23 45 67 90",
-      icon: "🚨",
-      color: "red"
+      title: 'Téléphone',
+      subtitle: 'Lun–Ven 9h–18h',
+      value: '+33 7 68 10 90 40',
+      icon: '📞'
     },
     {
-      title: "Commercial",
-      subtitle: "Lun-Ven 8h-18h",
-      value: "+33 1 23 45 67 89",
-      icon: "📞", 
-      color: "blue"
-    },
-    {
-      title: "Email",
-      subtitle: "Réponse sous 2h",
-      value: "contact@citadel-security.fr",
-      icon: "✉️",
-      color: "green"
-    },
-    {
-      title: "Adresse",
-      subtitle: "Siège social",
-      value: "123 Avenue de la Cybersécurité\n75001 Paris, France",
-      icon: "📍",
-      color: "purple"
+      title: 'Email',
+      subtitle: 'Réponse sous 24h ouvrées',
+      value: 'nicolas.bellencontre@outlook.fr',
+      icon: '✉️'
     }
   ]
 
   const services = [
-    "Audit de sécurité",
-    "Protection des données", 
-    "Surveillance continue",
-    "Réponse aux incidents",
-    "Formation sécurité",
-    "Architecture sécurisée",
-    "Autre"
+    'Audit de sécurité',
+    'Tests d’intrusion (Pentest)',
+    'Sensibilisation des collaborateurs',
+    'Autre'
   ]
 
   if (submitted) {
@@ -80,13 +85,11 @@ export default function Contact() {
       <main className="min-h-screen bg-white flex items-center justify-center">
         <div className="max-w-md mx-auto text-center p-8">
           <div className="text-6xl mb-6">✅</div>
-          <h1 className="text-3xl font-bold text-slate-900 mb-4">
-            Message Envoyé !
-          </h1>
+          <h1 className="text-3xl font-bold text-slate-900 mb-4">Message envoyé</h1>
           <p className="text-gray-600 mb-8">
-            Merci pour votre demande. Notre équipe vous contactera dans les plus brefs délais.
+            Merci pour votre demande. Nous revenons vers vous rapidement.
           </p>
-          <button 
+          <button
             onClick={() => {
               setSubmitted(false)
               setFormData({
@@ -95,13 +98,22 @@ export default function Contact() {
                 company: '',
                 phone: '',
                 service: '',
-                message: ''
+                message: '',
+                _gotcha: ''
               })
             }}
             className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
           >
-            Nouveau Message
+            Nouveau message
           </button>
+          <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
+            <Link href="/" className="px-5 py-3 bg-slate-100 rounded-lg hover:bg-slate-200">
+              Retour à l’accueil
+            </Link>
+            <Link href="/services" className="px-5 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+              Voir nos services
+            </Link>
+          </div>
         </div>
       </main>
     )
@@ -109,48 +121,32 @@ export default function Contact() {
 
   return (
     <main className="min-h-screen bg-white">
-      {/* Hero Section */}
+      {/* Hero */}
       <section className="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 text-white py-20">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
-              Contactez-Nous
+              Contact
             </h1>
-            <p className="text-xl text-gray-300 mb-8">
-              Notre équipe d&apos;experts est disponible pour répondre à tous vos besoins en cybersécurité
+            <p className="text-xl text-gray-300 mb-2">
+              Parlons de votre besoin en audit, pentest ou sensibilisation
             </p>
-                         <div className="grid md:grid-cols-3 gap-8 text-center">
-               <div>
-                 <div className="text-3xl font-bold text-blue-400">&lt; 15min</div>
-                 <div className="text-gray-300">Temps de Réponse Urgence</div>
-               </div>
-              <div>
-                <div className="text-3xl font-bold text-blue-400">24/7</div>
-                <div className="text-gray-300">Support Disponible</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-blue-400">2h</div>
-                <div className="text-gray-300">Réponse Email Garantie</div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* Contact Form & Info */}
+      {/* Form + Infos */}
       <section className="py-20">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12">
-              {/* Contact Form */}
+              {/* Formulaire */}
               <div className="bg-slate-50 rounded-xl p-8">
-                <h2 className="text-3xl font-bold text-slate-900 mb-6">
-                  Demande de Devis Gratuit
-                </h2>
+                <h2 className="text-3xl font-bold text-slate-900 mb-6">Nous écrire</h2>
                 <p className="text-gray-600 mb-8">
-                  Remplissez ce formulaire et recevez votre évaluation de sécurité personnalisée.
+                  Décrivez votre contexte et vos objectifs — nous revenons vers vous rapidement.
                 </p>
-                
+
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
@@ -163,11 +159,10 @@ export default function Contact() {
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                         required
+                        className="w-full px-4 py-3 bg-white text-slate-900 placeholder-slate-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                       />
                     </div>
-                    
                     <div>
                       <label htmlFor="email" className="block text-sm font-semibold text-slate-900 mb-2">
                         Email professionnel *
@@ -178,12 +173,12 @@ export default function Contact() {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                         required
+                        className="w-full px-4 py-3 bg-white text-slate-900 placeholder-slate-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                       />
                     </div>
                   </div>
-                  
+
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="company" className="block text-sm font-semibold text-slate-900 mb-2">
@@ -195,11 +190,10 @@ export default function Contact() {
                         name="company"
                         value={formData.company}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                         required
+                        className="w-full px-4 py-3 bg-white text-slate-900 placeholder-slate-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                       />
                     </div>
-                    
                     <div>
                       <label htmlFor="phone" className="block text-sm font-semibold text-slate-900 mb-2">
                         Téléphone
@@ -210,11 +204,11 @@ export default function Contact() {
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                        className="w-full px-4 py-3 bg-white text-slate-900 placeholder-slate-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                       />
                     </div>
                   </div>
-                  
+
                   <div>
                     <label htmlFor="service" className="block text-sm font-semibold text-slate-900 mb-2">
                       Service souhaité *
@@ -224,19 +218,21 @@ export default function Contact() {
                       name="service"
                       value={formData.service}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                       required
+                      className="w-full px-4 py-3 bg-white text-slate-900 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                     >
                       <option value="">Sélectionnez un service</option>
                       {services.map((service, index) => (
-                        <option key={index} value={service}>{service}</option>
+                        <option key={index} value={service}>
+                          {service}
+                        </option>
                       ))}
                     </select>
                   </div>
-                  
+
                   <div>
                     <label htmlFor="message" className="block text-sm font-semibold text-slate-900 mb-2">
-                      Décrivez vos besoins *
+                      Votre message *
                     </label>
                     <textarea
                       id="message"
@@ -244,12 +240,23 @@ export default function Contact() {
                       value={formData.message}
                       onChange={handleChange}
                       rows={4}
-                      placeholder="Décrivez votre contexte, vos défis sécurité et vos objectifs..."
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                      placeholder="Décrivez votre contexte, vos contraintes et vos objectifs…"
                       required
+                      className="w-full px-4 py-3 bg-white text-slate-900 placeholder-slate-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                     />
                   </div>
-                  
+
+                  {/* Honeypot anti-spam */}
+                  <input
+                    type="text"
+                    name="_gotcha"
+                    value={formData._gotcha}
+                    onChange={handleChange}
+                    className="hidden"
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+
                   <button
                     type="submit"
                     disabled={isSubmitting}
@@ -257,32 +264,42 @@ export default function Contact() {
                   >
                     {isSubmitting ? (
                       <span className="flex items-center justify-center">
-                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        <svg
+                          className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          />
                         </svg>
                         Envoi en cours...
                       </span>
                     ) : (
-                      'Envoyer ma Demande'
+                      'Envoyer'
                     )}
                   </button>
-                  
+
                   <p className="text-sm text-gray-500 text-center">
-                    En soumettant ce formulaire, vous acceptez d&apos;être contacté par notre équipe commerciale.
+                    En soumettant ce formulaire, vous acceptez d&apos;être contacté par notre équipe.
                   </p>
                 </form>
               </div>
-              
-              {/* Contact Information */}
+
+              {/* Infos de contact */}
               <div>
-                <h2 className="text-3xl font-bold text-slate-900 mb-8">
-                  Informations de Contact
-                </h2>
-                
+                <h2 className="text-3xl font-bold text-slate-900 mb-8">Informations de contact</h2>
+
                 <div className="space-y-6 mb-12">
                   {contactInfo.map((info, index) => (
-                    <div key={index} className="flex items-start p-6 bg-white rounded-xl border border-gray-200 hover:shadow-md transition-shadow">
+                    <div
+                      key={index}
+                      className="flex items-start p-6 bg-white rounded-xl border border-gray-200 hover:shadow-md transition-shadow"
+                    >
                       <div className="text-4xl mr-4">{info.icon}</div>
                       <div>
                         <h3 className="font-bold text-slate-900 mb-1">{info.title}</h3>
@@ -292,17 +309,17 @@ export default function Contact() {
                     </div>
                   ))}
                 </div>
-                
+
                 <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl p-8 text-white">
-                  <h3 className="text-2xl font-bold mb-4">Audit Gratuit Immédiat</h3>
+                  <h3 className="text-2xl font-bold mb-4">Premier échange</h3>
                   <p className="mb-6 text-blue-100">
-                    Besoin d&apos;une évaluation rapide ? Appelez notre hotline pour un premier diagnostic gratuit.
+                    Besoin d’un premier cadrage ? Discutons de votre contexte et des livrables attendus.
                   </p>
-                  <a 
-                    href="tel:+33123456789"
+                  <a
+                    href="tel:+33768109040"
                     className="inline-block px-6 py-3 bg-white text-blue-600 font-bold rounded-lg hover:bg-blue-50 transition-colors"
                   >
-                    📞 Appeler Maintenant
+                    📞 Appeler le +33 7 68 10 90 40
                   </a>
                 </div>
               </div>
@@ -311,38 +328,27 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* FAQ Contact */}
-      <section className="py-20 bg-slate-50">
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold text-slate-900 mb-12">
-              Questions Fréquentes sur Nos Services
-            </h2>
-            
-            <div className="grid md:grid-cols-2 gap-8 text-left">
-              <div className="bg-white rounded-xl p-6 shadow-sm">
-                <h3 className="font-bold text-slate-900 mb-3">Combien de temps pour un premier audit ?</h3>
-                <p className="text-gray-600">Un audit express peut être réalisé en 2-3 jours. Nous proposons également un pré-diagnostic gratuit par téléphone en 30 minutes.</p>
-              </div>
-              
-              <div className="bg-white rounded-xl p-6 shadow-sm">
-                <h3 className="font-bold text-slate-900 mb-3">Travaillez-vous avec les PME ?</h3>
-                <p className="text-gray-600">Absolument ! Nous avons des solutions adaptées à tous les budgets, des startups aux grandes entreprises.</p>
-              </div>
-              
-              <div className="bg-white rounded-xl p-6 shadow-sm">
-                <h3 className="font-bold text-slate-900 mb-3">Comment se passe l&apos;intervention d&apos;urgence ?</h3>
-                <p className="text-gray-600">Appel de notre hotline 24/7, première réponse sous 15 minutes, intervention sur site sous 2h en région parisienne.</p>
-              </div>
-              
-              <div className="bg-white rounded-xl p-6 shadow-sm">
-                <h3 className="font-bold text-slate-900 mb-3">Proposez-vous des contrats de maintenance ?</h3>
-                <p className="text-gray-600">Oui, nous offrons des contrats de surveillance continue avec monitoring 24/7 et mises à jour régulières.</p>
-              </div>
-            </div>
+      {/* CTA final */}
+      <section className="py-16 bg-slate-50">
+        <div className="container mx-auto px-6 text-center">
+          <h2 className="text-3xl font-bold text-slate-900 mb-6">Vous voulez en savoir plus ?</h2>
+          <p className="text-gray-600 mb-8">Découvrez nos services ou retournez à l’accueil.</p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/"
+              className="px-6 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition"
+            >
+              Retour à l’accueil
+            </Link>
+            <Link
+              href="/services"
+              className="px-6 py-3 bg-transparent border border-blue-600 text-blue-600 font-bold rounded-lg hover:bg-blue-50 transition"
+            >
+              Voir nos services
+            </Link>
           </div>
         </div>
       </section>
     </main>
   )
-} 
+}

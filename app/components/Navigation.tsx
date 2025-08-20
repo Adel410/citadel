@@ -11,8 +11,6 @@ export default function Navigation() {
     { href: '/', label: 'Accueil' },
     { href: '/services', label: 'Services' },
     { href: '/about', label: 'À propos' },
-    { href: '/portfolio', label: 'Portfolio' },
-    { href: '/temoignages', label: 'Témoignages' },
     { href: '/infos-pratiques', label: 'Infos Pratiques' }
   ]
 
