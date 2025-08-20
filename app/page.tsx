@@ -11,21 +11,20 @@ export default function Home() {
         <div className="absolute inset-0 bg-black/10" />
         <div className="relative container mx-auto px-6 py-24 lg:py-32">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
-              CITADEL
-            </h1>
-
-            <h2 className="text-2xl lg:text-3xl font-light mb-8 text-blue-100">
-              Votre{' '}
-              <span className="text-white bg-blue-600 px-1 py-0.1 rounded-sm">
-                rempart
-              </span>{' '}
-              contre les{' '}
-              <span className="text-white bg-blue-600 px-1 py-0.2 rounded-sm">
-                cybermenaces
-              </span>
-            </h2>
-
+           <h1 className="text-5xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+            CITADEL
+          </h1>
+            
+          <h2 className="text-2xl lg:text-3xl font-light mb-8 text-blue-100">
+            Votre{' '}
+            <span className="text-white bg-blue-600 rounded-sm">
+              rempart
+            </span>{' '}
+            contre les{' '}
+            <span className="text-white bg-blue-600 rounded-sm">
+              cybermenaces
+            </span>
+          </h2>
             <p className="text-2xl mb-10 text-gray-200 max-w-3xl mx-auto leading-relaxed text-center font-medium">
               CITADEL Cybersécurité accompagne les entreprises et les collectivités dans leur démarche de cybersécurité.
             </p>
