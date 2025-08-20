@@ -14,7 +14,8 @@
     "framer-motion": "^12.6.3",
     "next": "15.2.5",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-social-icons": "^6.24.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

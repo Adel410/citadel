@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { SocialIcon } from 'react-social-icons'
 
 export default function About() {
   const values = [
@@ -28,7 +29,7 @@ export default function About() {
     {
       year: "2025",
       title: "Création de Citadel",
-      description: "Fondée à Orléans par d’anciens militaires passionnés par l’audit et le hacking éthique."
+      description: "Fondée à Orléans par d’anciens militaires passionnés par la cybersécurité et soucieux de la défense des entreprises française."
     },
     {
       year: "2025",
@@ -127,14 +128,16 @@ export default function About() {
       </section>
 
       {/* CTA final */}
-      <section className="py-16 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+      <section className="py-16 relative bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 text-white">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Prêt à tester vos défenses ?
           </h2>
+
           <p className="text-blue-100 mb-8">
             Audit, pentest, sensibilisation — priorité à l’impact et aux actions concrètes.
           </p>
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/services"
@@ -142,6 +145,7 @@ export default function About() {
             >
               Parcourir les services
             </Link>
+
             <Link
               href="/contact"
               className="px-8 py-4 bg-transparent border border-white text-white font-bold rounded-lg hover:bg-white/10 transition"
@@ -149,24 +153,39 @@ export default function About() {
               Nous contacter
             </Link>
           </div>
-          <p className="mt-6 text-sm text-blue-100/90">
-            Suivre nos actus :{' '}
+          <div className="flex justify-center items-center gap-6 mt-8">
+            {/* LinkedIn Entreprise */}
             <a
               href="https://www.linkedin.com/company/citadel-cybers%C3%A9curit%C3%A9/about/"
               target="_blank"
-              className="underline hover:text-white"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-lg hover:bg-white/20 transition"
             >
-              LinkedIn CITADEL
-            </a>{' '}
-            •{' '}
+              <SocialIcon
+                url="https://www.linkedin.com/company/citadel-cybers%C3%A9curit%C3%A9/about/"
+                fgColor="#ffffff"
+                bgColor="transparent"
+                style={{ height: 30, width: 30 }}
+              />
+              <span className="text-white text-sm font-medium">CITADEL</span>
+            </a>
+
+            {/* LinkedIn Perso */}
             <a
               href="https://linkedin.com/in/nicolas-bellencontre-287427303"
               target="_blank"
-              className="underline hover:text-white"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-lg hover:bg-white/20 transition"
             >
-              Nicolas Bellencontre
+              <SocialIcon
+                url="https://linkedin.com/in/nicolas-bellencontre-287427303"
+                fgColor="#ffffff"
+                bgColor="transparent"
+                style={{ height: 30, width: 30 }}
+              />
+              <span className="text-white text-sm font-medium">Nicolas Bellencontre</span>
             </a>
-          </p>
+          </div>
         </div>
       </section>
     </main>

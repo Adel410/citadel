@@ -144,7 +144,7 @@ export default function Contact() {
               <div className="bg-slate-50 rounded-xl p-8">
                 <h2 className="text-3xl font-bold text-slate-900 mb-6">Nous écrire</h2>
                 <p className="text-gray-600 mb-8">
-                  Décrivez votre contexte et vos objectifs — nous revenons vers vous rapidement.
+                  Décrivez votre contexte et vos objectifs - nous revenons vers vous rapidement.
                 </p>
 
                 <form onSubmit={handleSubmit} className="space-y-6">

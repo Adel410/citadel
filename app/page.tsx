@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { SocialIcon } from 'react-social-icons'
 
 export default function Home() {
   return (
@@ -13,14 +14,20 @@ export default function Home() {
             <h1 className="text-5xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
               CITADEL
             </h1>
+
             <h2 className="text-2xl lg:text-3xl font-light mb-8 text-blue-100">
-              Votre <span className="text-white bg-blue-600 px-2 py-1 rounded-md">rempart</span> contre les <span className="text-white bg-blue-600 px-2 py-1 rounded-md">cybermenaces</span>
+              Votre{' '}
+              <span className="text-white bg-blue-600 px-1 py-0.5 rounded-sm">
+                rempart
+              </span>{' '}
+              contre les{' '}
+              <span className="text-white bg-blue-600 px-1 py-0.5 rounded-sm">
+                cybermenaces
+              </span>
             </h2>
-            <p className="text-xl mb-10 text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              CITADEL Cybersécurité, basée à Orléans, accompagne collectivités et entreprises
-              avec des <span className="font-semibold text-white/95">audits professionnels</span>, des
-              <span className="font-semibold text-white/95"> tests d’intrusion éthiques</span> et des
-              <span className="font-semibold text-white/95"> programmes de sensibilisation</span>.
+
+            <p className="text-2xl mb-10 text-gray-200 max-w-3xl mx-auto leading-relaxed text-center font-medium">
+              CITADEL Cybersécurité accompagne les entreprises et les collectivités dans leur démarche de cybersécurité.
             </p>
 
             {/* CTA principal */}
@@ -31,6 +38,7 @@ export default function Home() {
               >
                 Voir nos services
               </Link>
+
               <Link
                 href="/contact?type=audit"
                 className="px-8 py-4 bg-white text-blue-700 font-bold rounded-lg hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-xl"
@@ -40,10 +48,35 @@ export default function Home() {
             </div>
 
             {/* Bandeau infos rapides */}
-            <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-blue-100/90">
-              <div className="px-4 py-2 rounded-lg border border-white/10 bg-white/5">Basés à Orléans</div>
-              <div className="px-4 py-2 rounded-lg border border-white/10 bg-white/5">TPE · PME · Collectivités</div>
-              <div className="px-4 py-2 rounded-lg border border-white/10 bg-white/5">Approche offensive & pédagogique</div>
+            <div className="mt-12 pt-8 border-t border-white/15">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
+                {/* Carte 1 */}
+                <div className="flex items-start gap-3 rounded-lg bg-white/10 ring-1 ring-white/15 p-4">
+                  <span className="text-xl leading-none">📍</span>
+                  <div>
+                    <div className="text-xs uppercase tracking-wider text-blue-100/70">Localisation</div>
+                    <div className="text-sm text-blue-100/95">Basés à Orléans</div>
+                  </div>
+                </div>
+
+                {/* Carte 2 */}
+                <div className="flex items-start gap-3 rounded-lg bg-white/10 ring-1 ring-white/15 p-4">
+                  <span className="text-xl leading-none">🏢</span>
+                  <div>
+                    <div className="text-xs uppercase tracking-wider text-blue-100/70">Clients</div>
+                    <div className="text-sm text-blue-100/95">TPE · PME · Collectivités</div>
+                  </div>
+                </div>
+
+                {/* Carte 3 */}
+                <div className="flex items-start gap-3 rounded-lg bg-white/10 ring-1 ring-white/15 p-4">
+                  <span className="text-xl leading-none">🛡️</span>
+                  <div>
+                    <div className="text-xs uppercase tracking-wider text-blue-100/70">Approche</div>
+                    <div className="text-sm text-blue-100/95">Offensive & pédagogique</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -119,6 +152,7 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900">Notre méthodologie</h2>
             <p className="text-gray-600 mt-3">Une cadence claire, des livrables actionnables.</p>
           </div>
+
           <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-4">
             {[
               { t: 'Cadrage', d: "Objectifs, périmètre, accès, règles d’engagement" },
@@ -127,7 +161,9 @@ export default function Home() {
               { t: 'Contre-audit', d: 'Validation des corrections et mise à jour' }
             ].map((s, i) => (
               <div key={i} className="bg-white rounded-xl p-6 shadow-sm">
-                <div className="text-sm font-semibold text-blue-700 mb-1">{i + 1}) {s.t}</div>
+                <div className="text-sm font-semibold text-blue-700 mb-1">
+                  {i + 1}) {s.t}
+                </div>
                 <div className="text-slate-700">{s.d}</div>
               </div>
             ))}
@@ -141,6 +177,7 @@ export default function Home() {
           <div className="max-w-5xl mx-auto text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900">Nous intervenons pour</h2>
           </div>
+
           <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { t: 'TPE', d: 'Mise à niveau sécurité pragmatique' },
@@ -157,14 +194,16 @@ export default function Home() {
       </section>
 
       {/* CTA final */}
-      <section className="py-16 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+      <section className="py-16 relative bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 text-white">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Prêt à tester vos défenses ?
           </h2>
+
           <p className="text-blue-100 mb-8">
             Audit, pentest, sensibilisation — priorité à l’impact et aux actions concrètes.
           </p>
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/services"
@@ -172,6 +211,7 @@ export default function Home() {
             >
               Parcourir les services
             </Link>
+
             <Link
               href="/contact"
               className="px-8 py-4 bg-transparent border border-white text-white font-bold rounded-lg hover:bg-white/10 transition"
@@ -179,24 +219,39 @@ export default function Home() {
               Nous contacter
             </Link>
           </div>
-          <p className="mt-6 text-sm text-blue-100/90">
-            Suivre nos actus :{' '}
+          <div className="flex justify-center items-center gap-6 mt-8">
+            {/* LinkedIn Entreprise */}
             <a
               href="https://www.linkedin.com/company/citadel-cybers%C3%A9curit%C3%A9/about/"
               target="_blank"
-              className="underline hover:text-white"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-lg hover:bg-white/20 transition"
             >
-              LinkedIn CITADEL
-            </a>{' '}
-            •{' '}
+              <SocialIcon
+                url="https://www.linkedin.com/company/citadel-cybers%C3%A9curit%C3%A9/about/"
+                fgColor="#ffffff"
+                bgColor="transparent"
+                style={{ height: 30, width: 30 }}
+              />
+              <span className="text-white text-sm font-medium">CITADEL</span>
+            </a>
+
+            {/* LinkedIn Perso */}
             <a
               href="https://linkedin.com/in/nicolas-bellencontre-287427303"
               target="_blank"
-              className="underline hover:text-white"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-lg hover:bg-white/20 transition"
             >
-              Nicolas Bellencontre
+              <SocialIcon
+                url="https://linkedin.com/in/nicolas-bellencontre-287427303"
+                fgColor="#ffffff"
+                bgColor="transparent"
+                style={{ height: 30, width: 30 }}
+              />
+              <span className="text-white text-sm font-medium">Nicolas Bellencontre</span>
             </a>
-          </p>
+          </div>
         </div>
       </section>
     </main>
