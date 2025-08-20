@@ -44,7 +44,7 @@ export default function Contact() {
 
       if (!res.ok) throw new Error('send_failed')
       setSubmitted(true)
-    } catch (err) {
+    } catch {
       alert("Erreur lors de l'envoi. Réessaie dans un instant.")
     } finally {
       setIsSubmitting(false)
