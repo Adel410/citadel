@@ -17,11 +17,11 @@ export default function Home() {
 
             <h2 className="text-2xl lg:text-3xl font-light mb-8 text-blue-100">
               Votre{' '}
-              <span className="text-white bg-blue-600 px-1 py-0.5 rounded-sm">
+              <span className="text-white bg-blue-600 px-1 py-0.1 rounded-sm">
                 rempart
               </span>{' '}
               contre les{' '}
-              <span className="text-white bg-blue-600 px-1 py-0.5 rounded-sm">
+              <span className="text-white bg-blue-600 px-1 py-0.2 rounded-sm">
                 cybermenaces
               </span>
             </h2>
@@ -165,28 +165,6 @@ export default function Home() {
                   {i + 1}) {s.t}
                 </div>
                 <div className="text-slate-700">{s.d}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Secteurs servis */}
-      <section className="py-16 bg-slate-50">
-        <div className="container mx-auto px-6">
-          <div className="max-w-5xl mx-auto text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900">Nous intervenons pour</h2>
-          </div>
-
-          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { t: 'TPE', d: 'Mise à niveau sécurité pragmatique' },
-              { t: 'PME', d: 'Audits ciblés & pentests réguliers' },
-              { t: 'Collectivités', d: 'Accompagnement et sensibilisation' }
-            ].map((c, i) => (
-              <div key={i} className="bg-white rounded-xl p-8 shadow-sm text-center">
-                <div className="text-2xl font-extrabold text-blue-800/80 mb-2">{c.t}</div>
-                <div className="text-slate-700">{c.d}</div>
               </div>
             ))}
           </div>

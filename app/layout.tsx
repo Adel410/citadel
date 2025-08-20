@@ -25,7 +25,7 @@ export default function RootLayout({
         </div>
 
         {/* Footer global */}
-        <footer className="bg-slate-900 text-blue-100 py-6 mt-16">
+        <footer className="bg-slate-900 text-blue-100 py-6 mt-1">
           <div className="container mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-sm">
             <p>© {new Date().getFullYear()} CITADEL Cybersécurité. Tous droits réservés.</p>
             <div className="flex gap-4">
