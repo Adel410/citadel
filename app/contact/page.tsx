@@ -1,34 +1,34 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import Link from 'next/link'
+import { useState } from "react";
+import Link from "next/link";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    phone: '',
-    service: '',
-    message: '',
-    _gotcha: '' // honeypot anti-spam
-  })
+    name: "",
+    email: "",
+    company: "",
+    phone: "",
+    service: "",
+    message: "",
+    _gotcha: "", // honeypot anti-spam
+  });
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
-  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xeozblnl'
+  const FORMSPREE_ENDPOINT = "https://formspree.io/f/xeozblnl";
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+    e.preventDefault();
+    setIsSubmitting(true);
 
     try {
       const res = await fetch(FORMSPREE_ENDPOINT, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json'
+          "Content-Type": "application/json",
+          Accept: "application/json",
         },
         body: JSON.stringify({
           name: formData.name,
@@ -37,98 +37,144 @@ export default function Contact() {
           phone: formData.phone,
           service: formData.service,
           message: formData.message,
-          _subject: `Contact – ${formData.service || 'Demande'}`,
-          _gotcha: formData._gotcha
-        })
-      })
+          _subject: `Contact – ${formData.service || "Demande"}`,
+          _gotcha: formData._gotcha,
+        }),
+      });
 
-      if (!res.ok) throw new Error('send_failed')
-      setSubmitted(true)
+      if (!res.ok) throw new Error("send_failed");
+      setSubmitted(true);
     } catch {
-      alert("Erreur lors de l'envoi. Réessaie dans un instant.")
+      alert("Erreur lors de l'envoi. Réessaie dans un instant.");
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
-    const { name, value } = e.target
-    setFormData(prev => ({ ...prev, [name]: value }))
-  }
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const contactInfo = [
     {
-      title: 'Téléphone',
-      subtitle: 'Lun–Ven 9h–18h',
-      value: '+33 7 68 10 90 40',
-      icon: '📞'
+      title: "Téléphone",
+      subtitle: "Lun–Ven 9h–18h",
+      value: "+33 7 68 10 90 40",
+      icon: "📞",
     },
     {
-      title: 'Email',
-      subtitle: 'Réponse sous 24h ouvrées',
-      value: 'nicolas.bellencontre@outlook.fr',
-      icon: '✉️'
-    }
-  ]
+      title: "Email",
+      subtitle: "Réponse sous 24h ouvrées",
+      value: "nicolas.bellencontre@outlook.fr",
+      icon: "✉️",
+    },
+  ];
 
   const services = [
-    'Audit de sécurité',
-    'Tests d’intrusion (Pentest)',
-    'Sensibilisation des collaborateurs',
-    'Autre'
-  ]
+    "Audit de sécurité",
+    "Tests d’intrusion (Pentest)",
+    "Sensibilisation des collaborateurs",
+    "Autre",
+  ];
 
   if (submitted) {
     return (
       <main className="min-h-screen bg-white flex items-center justify-center">
         <div className="max-w-md mx-auto text-center p-8">
           <div className="text-6xl mb-6">✅</div>
-          <h1 className="text-3xl font-bold text-slate-900 mb-4">Message envoyé</h1>
+          <h1 className="text-3xl font-bold text-slate-900 mb-4">
+            Message envoyé
+          </h1>
           <p className="text-gray-600 mb-8">
             Merci pour votre demande. Nous revenons vers vous rapidement.
           </p>
           <button
             onClick={() => {
-              setSubmitted(false)
+              setSubmitted(false);
               setFormData({
-                name: '',
-                email: '',
-                company: '',
-                phone: '',
-                service: '',
-                message: '',
-                _gotcha: ''
-              })
+                name: "",
+                email: "",
+                company: "",
+                phone: "",
+                service: "",
+                message: "",
+                _gotcha: "",
+              });
             }}
             className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors"
           >
             Nouveau message
           </button>
           <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
-            <Link href="/" className="px-5 py-3 bg-slate-100 rounded-lg hover:bg-slate-200">
+            <Link
+              href="/"
+              className="px-5 py-3 bg-slate-100 rounded-lg hover:bg-slate-200"
+            >
               Retour à l’accueil
             </Link>
-            <Link href="/services" className="px-5 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+            <Link
+              href="/services"
+              className="px-5 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            >
               Voir nos services
             </Link>
           </div>
         </div>
       </main>
-    )
+    );
   }
 
   return (
     <main className="min-h-screen bg-white">
-      {/* Hero */}
-      <section className="bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 text-white py-20">
-        <div className="container mx-auto px-6">
+      {/* HERO animé (mesh + reflet curseur) */}
+      <section
+        className="relative overflow-hidden text-white bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 py-20"
+        onMouseMove={(e) => {
+          const el = e.currentTarget as HTMLElement;
+          const rect = el.getBoundingClientRect();
+          el.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+          el.style.setProperty("--my", `${e.clientY - rect.top}px`);
+        }}
+        onMouseLeave={(e) => {
+          const el = e.currentTarget as HTMLElement;
+          el.style.setProperty("--mx", `-1000px`);
+          el.style.setProperty("--my", `-1000px`);
+        }}
+      >
+        {/* Fond mesh conique très doux */}
+        <div
+          aria-hidden
+          className="absolute -inset-[30%] -z-20 opacity-40 animate-spin-very-slow"
+          style={{
+            background:
+              "conic-gradient(from 0deg, rgba(30,64,175,0.35), rgba(59,130,246,0.35), rgba(99,102,241,0.35), rgba(2,132,199,0.35), rgba(30,64,175,0.35))",
+            animationDuration: "40s",
+            filter: "blur(120px)",
+          }}
+        />
+        {/* Reflet curseur */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-0"
+          style={{
+            background:
+              "radial-gradient(380px 380px at var(--mx, -1000px) var(--my, -1000px), rgba(255,255,255,0.035), rgba(255,255,255,0.02) 35%, rgba(0,0,0,0) 65%)",
+            mixBlendMode: "screen",
+            transition: "background-position 120ms ease-out",
+          }}
+        />
+
+        <div className="container mx-auto px-6 relative">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+            <h1 className="text-5xl font-extrabold mb-6 bg-gradient-to-r from-white via-blue-200 to-white bg-[length:200%_100%] bg-clip-text text-transparent animate-gradient-x">
               Contact
             </h1>
-            <p className="text-xl text-gray-300 mb-2">
+            <p className="text-xl text-blue-100">
               Parlons de votre besoin en audit, pentest ou sensibilisation
             </p>
           </div>
@@ -142,15 +188,21 @@ export default function Contact() {
             <div className="grid lg:grid-cols-2 gap-12">
               {/* Formulaire */}
               <div className="bg-slate-50 rounded-xl p-8">
-                <h2 className="text-3xl font-bold text-slate-900 mb-6">Nous écrire</h2>
+                <h2 className="text-3xl font-bold text-slate-900 mb-6">
+                  Nous écrire
+                </h2>
                 <p className="text-gray-600 mb-8">
-                  Décrivez votre contexte et vos objectifs - nous revenons vers vous rapidement.
+                  Décrivez votre contexte et vos objectifs — nous revenons vers
+                  vous rapidement.
                 </p>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-semibold text-slate-900 mb-2">
+                      <label
+                        htmlFor="name"
+                        className="block text-sm font-semibold text-slate-900 mb-2"
+                      >
                         Nom complet *
                       </label>
                       <input
@@ -159,12 +211,16 @@ export default function Contact() {
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
+                        autoComplete="name"
                         required
                         className="w-full px-4 py-3 bg-white text-slate-900 placeholder-slate-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                       />
                     </div>
                     <div>
-                      <label htmlFor="email" className="block text-sm font-semibold text-slate-900 mb-2">
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-semibold text-slate-900 mb-2"
+                      >
                         Email professionnel *
                       </label>
                       <input
@@ -173,6 +229,7 @@ export default function Contact() {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
+                        autoComplete="email"
                         required
                         className="w-full px-4 py-3 bg-white text-slate-900 placeholder-slate-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                       />
@@ -181,7 +238,10 @@ export default function Contact() {
 
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="company" className="block text-sm font-semibold text-slate-900 mb-2">
+                      <label
+                        htmlFor="company"
+                        className="block text-sm font-semibold text-slate-900 mb-2"
+                      >
                         Entreprise *
                       </label>
                       <input
@@ -190,12 +250,16 @@ export default function Contact() {
                         name="company"
                         value={formData.company}
                         onChange={handleChange}
+                        autoComplete="organization"
                         required
                         className="w-full px-4 py-3 bg-white text-slate-900 placeholder-slate-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                       />
                     </div>
                     <div>
-                      <label htmlFor="phone" className="block text-sm font-semibold text-slate-900 mb-2">
+                      <label
+                        htmlFor="phone"
+                        className="block text-sm font-semibold text-slate-900 mb-2"
+                      >
                         Téléphone
                       </label>
                       <input
@@ -204,13 +268,17 @@ export default function Contact() {
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
+                        autoComplete="tel"
                         className="w-full px-4 py-3 bg-white text-slate-900 placeholder-slate-400 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="service" className="block text-sm font-semibold text-slate-900 mb-2">
+                    <label
+                      htmlFor="service"
+                      className="block text-sm font-semibold text-slate-900 mb-2"
+                    >
                       Service souhaité *
                     </label>
                     <select
@@ -231,7 +299,10 @@ export default function Contact() {
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="block text-sm font-semibold text-slate-900 mb-2">
+                    <label
+                      htmlFor="message"
+                      className="block text-sm font-semibold text-slate-900 mb-2"
+                    >
                       Votre message *
                     </label>
                     <textarea
@@ -269,8 +340,16 @@ export default function Contact() {
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
                           viewBox="0 0 24 24"
+                          aria-hidden="true"
                         >
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          />
                           <path
                             className="opacity-75"
                             fill="currentColor"
@@ -280,19 +359,22 @@ export default function Contact() {
                         Envoi en cours...
                       </span>
                     ) : (
-                      'Envoyer'
+                      "Envoyer"
                     )}
                   </button>
 
                   <p className="text-sm text-gray-500 text-center">
-                    En soumettant ce formulaire, vous acceptez d&apos;être contacté par notre équipe.
+                    En soumettant ce formulaire, vous acceptez d&apos;être
+                    contacté par notre équipe.
                   </p>
                 </form>
               </div>
 
               {/* Infos de contact */}
               <div>
-                <h2 className="text-3xl font-bold text-slate-900 mb-8">Informations de contact</h2>
+                <h2 className="text-3xl font-bold text-slate-900 mb-8">
+                  Informations de contact
+                </h2>
 
                 <div className="space-y-6 mb-12">
                   {contactInfo.map((info, index) => (
@@ -302,9 +384,15 @@ export default function Contact() {
                     >
                       <div className="text-4xl mr-4">{info.icon}</div>
                       <div>
-                        <h3 className="font-bold text-slate-900 mb-1">{info.title}</h3>
-                        <p className="text-sm text-gray-500 mb-2">{info.subtitle}</p>
-                        <p className="text-gray-700 whitespace-pre-line">{info.value}</p>
+                        <h3 className="font-bold text-slate-900 mb-1">
+                          {info.title}
+                        </h3>
+                        <p className="text-sm text-gray-500 mb-2">
+                          {info.subtitle}
+                        </p>
+                        <p className="text-gray-700 whitespace-pre-line">
+                          {info.value}
+                        </p>
                       </div>
                     </div>
                   ))}
@@ -313,7 +401,8 @@ export default function Contact() {
                 <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-xl p-8 text-white">
                   <h3 className="text-2xl font-bold mb-4">Premier échange</h3>
                   <p className="mb-6 text-blue-100">
-                    Besoin d’un premier cadrage ? Discutons de votre contexte et des livrables attendus.
+                    Besoin d’un premier cadrage ? Discutons de votre contexte et
+                    des livrables attendus.
                   </p>
                   <a
                     href="tel:+33768109040"
@@ -328,11 +417,15 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* CTA final */}
+      {/* CTA final (inchangé) */}
       <section className="py-16 bg-slate-50">
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold text-slate-900 mb-6">Vous voulez en savoir plus ?</h2>
-          <p className="text-gray-600 mb-8">Découvrez nos services ou retournez à l’accueil.</p>
+          <h2 className="text-3xl font-bold text-slate-900 mb-6">
+            Vous voulez en savoir plus ?
+          </h2>
+          <p className="text-gray-600 mb-8">
+            Découvrez nos services ou retournez à l’accueil.
+          </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/"
@@ -350,5 +443,5 @@ export default function Contact() {
         </div>
       </section>
     </main>
-  )
+  );
 }
