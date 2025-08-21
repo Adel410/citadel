@@ -243,7 +243,13 @@ function FinalCTA() {
 function Hero() {
   return (
     <section
-      className="relative overflow-hidden text-white bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800"
+      className="relative overflow-hidden text-white"
+      style={{
+        backgroundImage: "url('/citadel_abstract.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center 70%",
+        backgroundRepeat: "no-repeat",
+      }}
       onMouseMove={(e) => {
         const el = e.currentTarget as HTMLElement;
         const rect = el.getBoundingClientRect();
@@ -256,102 +262,86 @@ function Hero() {
         el.style.setProperty("--my", `-1000px`);
       }}
     >
+      {/* Voile + blur + animation */}
+      <div className="absolute inset-0 bg-grey/10 z-0 animate-bg-reveal" style={{ backdropFilter: "blur(3px)" }} />
+
       {/* Reflet doux qui suit le curseur */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-0"
+        className="pointer-events-none absolute inset-0 z-10"
         style={{
           background:
-            "radial-gradient(380px 380px at var(--mx, -1000px) var(--my, -1000px), rgba(255,255,255,0.035), rgba(255,255,255,0.02) 35%, rgba(0,0,0,0) 65%)",
+            "radial-gradient(380px 380px at var(--mx, -1000px) var(--my, -1000px), rgba(255,255,255,0.06), rgba(255,255,255,0.03) 35%, rgba(0,0,0,0) 95%)",
           mixBlendMode: "screen",
           transition: "background-position 120ms ease-out",
         }}
       />
 
-      <div className="relative container mx-auto px-6 py-24 lg:py-32">
-        {/* Carte verre translucide */}
-        <div className="mx-auto max-w-4xl text-center rounded-2xl bg-white/20 backdrop-blur-2xl ring-1 ring-white/20 p-8 md:p-12 shadow-xl">
-          <h1 className="relative inline-block mx-auto text-5xl lg:text-7xl font-extrabold mb-8 leading-none">
-            <span className="bg-gradient-to-r from-white via-blue-200 to-white bg-[length:200%_100%] bg-clip-text text-transparent animate-gradient-x tracking-tight">
-              CITADEL
-            </span>
-            <span
-              aria-hidden
-              className="pointer-events-none absolute inset-0 -z-10 blur-2xl opacity-30"
-              style={{
-                background:
-                  "radial-gradient(60% 60% at 50% 55%, rgba(96,165,250,0.35), rgba(59,130,246,0.15) 40%, rgba(0,0,0,0) 70%)",
-                filter: "drop-shadow(0 0 25px rgba(96,165,250,0.35))",
-              }}
-            />
-          </h1>
+      {/* Contenu */}
+      <div className="relative container mx-auto px-6 py-24 lg:py-32 z-20 text-center">
+        <h2 className="text-2xl lg:text-6xl font-bold mb-10 text-blue-50 drop-shadow leading-snug sm:leading-normal md:leading-relaxed animate-fade-down">
+          Votre{" "}
+          <span className="bg-blue-600/90 text-white font-bold px-2 rounded-md shadow">
+            Rempart
+          </span>{" "}
+          contre les{" "}
+          <span className="bg-blue-600/90 text-white font-bold px-2 rounded-md shadow">
+            Cybermenaces
+          </span>
+        </h2>
 
-          <h2 className="text-2xl lg:text-3xl font-bold mb-10 text-blue-50 drop-shadow">
-            Votre{" "}
-            <span className="bg-blue-600/90 text-white font-bold px-2 py-0.5 rounded-md shadow">
-              rempart
-            </span>{" "}
-            contre les{" "}
-            <span className="bg-blue-600/90 text-white font-bold px-2 py-0.5 rounded-md shadow">
-              cybermenaces
-            </span>
-          </h2>
+        <p className="text-2xl mb-10 text-gray-100 leading-relaxed font-medium animate-fade-down-2">
+          CITADEL Cybersécurité accompagne les entreprises et les collectivités
+          dans leur démarche de cybersécurité.
+        </p>
 
-          <p className="text-2xl mb-10 text-gray-100 leading-relaxed font-medium">
-            CITADEL Cybersécurité accompagne les entreprises et les
-            collectivités dans leur démarche de cybersécurité.
-          </p>
+        {/* CTA principal */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-down-3">
+          <Link
+            href="/services"
+            className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-lg transition-all duration-300 border border-white/30"
+          >
+            Voir nos services
+          </Link>
+          <Link
+            href="/contact?type=audit"
+            className="px-8 py-4 bg-white text-blue-700 font-bold rounded-lg hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-xl"
+          >
+            Demander un audit
+          </Link>
+        </div>
 
-          {/* CTA principal */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/services"
-              className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-lg transition-all duration-300 border border-white/30"
-            >
-              Voir nos services
-            </Link>
-            <Link
-              href="/contact?type=audit"
-              className="px-8 py-4 bg-white text-blue-700 font-bold rounded-lg hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-xl"
-            >
-              Demander un audit
-            </Link>
-          </div>
-
-          {/* Bandeau infos rapides */}
-          <div className="mt-12 pt-8 border-t border-white/15">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
-              <div className="flex items-start gap-3 rounded-lg bg-white/10 backdrop-blur-sm ring-1 ring-white/15 p-4">
-                <span className="text-xl leading-none">📍</span>
-                <div>
-                  <div className="text-xs uppercase tracking-wider text-blue-100/70">
-                    Localisation
-                  </div>
-                  <div className="text-sm text-blue-100/95">
-                    Basés à Orléans
-                  </div>
+        {/* Bandeau infos rapides */}
+        <div className="mt-12 pt-8 border-t border-white/15 animate-fade-down-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
+            <div className="flex items-start gap-3 rounded-lg bg-white/10 backdrop-blur-sm ring-1 ring-white/15 p-4">
+              <span className="text-xl leading-none">📍</span>
+              <div>
+                <div className="text-xs uppercase tracking-wider text-blue-100/70">
+                  Localisation
+                </div>
+                <div className="text-sm text-blue-100/95">Basés à Orléans</div>
+              </div>
+            </div>
+            <div className="flex items-start gap-3 rounded-lg bg-white/10 backdrop-blur-sm ring-1 ring-white/15 p-4">
+              <span className="text-xl leading-none">🏢</span>
+              <div>
+                <div className="text-xs uppercase tracking-wider text-blue-100/70">
+                  Clients
+                </div>
+                <div className="text-sm text-blue-100/95">
+                  TPE · PME · Collectivités
                 </div>
               </div>
-              <div className="flex items-start gap-3 rounded-lg bg-white/10 backdrop-blur-sm ring-1 ring-white/15 p-4">
-                <span className="text-xl leading-none">🏢</span>
-                <div>
-                  <div className="text-xs uppercase tracking-wider text-blue-100/70">
-                    Clients
-                  </div>
-                  <div className="text-sm text-blue-100/95">
-                    TPE · PME · Collectivités
-                  </div>
+            </div>
+            <div className="flex items-start gap-3 rounded-lg bg-white/10 backdrop-blur-sm ring-1 ring-white/15 p-4">
+              <span className="text-xl leading-none">🛡️</span>
+              <div>
+                <div className="text-xs uppercase tracking-wider text-blue-100/70">
+                  Approche
                 </div>
-              </div>
-              <div className="flex items-start gap-3 rounded-lg bg-white/10 backdrop-blur-sm ring-1 ring-white/15 p-4">
-                <span className="text-xl leading-none">🛡️</span>
-                <div>
-                  <div className="text-xs uppercase tracking-wider text-blue-100/70">
-                    Approche
-                  </div>
-                  <div className="text-sm text-blue-100/95">
-                    Offensive & pédagogique
-                  </div>
+                <div className="text-sm text-blue-100/95">
+                  Offensive & pédagogique
                 </div>
               </div>
             </div>
@@ -361,6 +351,7 @@ function Hero() {
     </section>
   );
 }
+
 
 export default function Home() {
   return (

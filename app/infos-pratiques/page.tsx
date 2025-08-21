@@ -51,7 +51,13 @@ export default function InfosPratiques() {
     <main className="min-h-screen bg-white">
       {/* HERO animé */}
       <section
-        className="relative overflow-hidden text-white bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 py-20"
+        className="relative overflow-hidden text-white"
+        style={{
+          backgroundImage: "url('/citadel_abstract.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center 70%",
+          backgroundRepeat: "no-repeat",
+        }}
         onMouseMove={(e) => {
           const el = e.currentTarget as HTMLElement;
           const rect = el.getBoundingClientRect();
@@ -64,38 +70,32 @@ export default function InfosPratiques() {
           el.style.setProperty("--my", `-1000px`);
         }}
       >
-        {/* Fond mesh animé */}
+        {/* Voile + blur */}
         <div
-          aria-hidden
-          className="absolute -inset-[30%] -z-20 opacity-40 animate-spin-very-slow"
-          style={{
-            background:
-              "conic-gradient(from 0deg, rgba(30,64,175,0.35), rgba(59,130,246,0.35), rgba(99,102,241,0.35), rgba(2,132,199,0.35), rgba(30,64,175,0.35))",
-            animationDuration: "40s",
-            filter: "blur(120px)",
-          }}
+          className="absolute inset-0 bg-grey/20 z-0 animate-bg-reveal"
+          style={{ backdropFilter: "blur(2px)" }}
         />
+
         {/* Reflet curseur */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 z-0"
+          className="pointer-events-none absolute inset-0 z-10"
           style={{
             background:
-              "radial-gradient(380px 380px at var(--mx, -1000px) var(--my, -1000px), rgba(255,255,255,0.035), rgba(255,255,255,0.02) 35%, rgba(0,0,0,0) 65%)",
+              "radial-gradient(380px 380px at var(--mx, -1000px) var(--my, -1000px), rgba(255,255,255,0.06), rgba(255,255,255,0.03) 35%, rgba(0,0,0,0) 95%)",
             mixBlendMode: "screen",
             transition: "background-position 120ms ease-out",
           }}
         />
 
-        <div className="container mx-auto px-6 relative">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white via-blue-200 to-white bg-[length:200%_100%] bg-clip-text text-transparent animate-gradient-x">
-              Infos Pratiques
-            </h1>
-            <p className="text-xl text-blue-100">
-              L’essentiel pour travailler avec CITADEL Cybersécurité
-            </p>
-          </div>
+        {/* Contenu */}
+        <div className="relative container mx-auto px-6 py-20 md:py-28 z-20 text-center">
+          <h1 className="text-4xl md:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white via-blue-200 to-white bg-[length:200%_100%] bg-clip-text text-transparent animate-gradient-x animate-fade-down">
+            Infos Pratiques
+          </h1>
+          <p className="text-lg md:text-xl text-blue-100 animate-fade-down-2">
+            L’essentiel pour travailler avec CITADEL Cybersécurité
+          </p>
         </div>
       </section>
 

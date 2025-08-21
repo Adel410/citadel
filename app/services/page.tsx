@@ -83,71 +83,61 @@ function ServicesHero() {
   const handleMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
     const el = e.currentTarget as HTMLElement
     const rect = el.getBoundingClientRect()
-    el.style.setProperty('--mx', `${e.clientX - rect.left}px`)
-    el.style.setProperty('--my', `${e.clientY - rect.top}px`)
+    el.style.setProperty("--mx", `${e.clientX - rect.left}px`)
+    el.style.setProperty("--my", `${e.clientY - rect.top}px`)
   }, [])
 
   const handleLeave = useCallback((e: React.MouseEvent<HTMLElement>) => {
     const el = e.currentTarget as HTMLElement
-    el.style.setProperty('--mx', `-1000px`)
-    el.style.setProperty('--my', `-1000px`)
+    el.style.setProperty("--mx", `-1000px`)
+    el.style.setProperty("--my", `-1000px`)
   }, [])
 
   return (
     <section
-      className="relative overflow-hidden text-white bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800"
+      className="relative overflow-hidden text-white"
+      style={{
+        backgroundImage: "url('/citadel_abstract.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center 65%",
+        backgroundRepeat: "no-repeat",
+      }}
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
     >
-      {/* fond animé mesh (conic) */}
+      {/* Voile + blur + animation */}
+      <div
+        className="absolute inset-0 bg-grey/20 z-0 animate-bg-reveal"
+        style={{ backdropFilter: "blur(2px)" }}
+      />
+
+      {/* Reflet curseur */}
       <div
         aria-hidden
-        className="absolute -inset-[30%] -z-20 opacity-40 animate-spin-very-slow"
+        className="pointer-events-none absolute inset-0 z-10"
         style={{
           background:
-            'conic-gradient(from 0deg, rgba(30,64,175,0.35), rgba(59,130,246,0.35), rgba(99,102,241,0.35), rgba(2,132,199,0.35), rgba(30,64,175,0.35))',
-          animationDuration: '40s',
-          filter: 'blur(120px)',
+            "radial-gradient(380px 380px at var(--mx, -1000px) var(--my, -1000px), rgba(255,255,255,0.06), rgba(255,255,255,0.03) 35%, rgba(0,0,0,0) 95%)",
+          mixBlendMode: "screen",
+          transition: "background-position 120ms ease-out",
         }}
       />
 
-      {/* reflet curseur */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 z-0"
-        style={{
-          background:
-            'radial-gradient(380px 380px at var(--mx, -1000px) var(--my, -1000px), rgba(255,255,255,0.035), rgba(255,255,255,0.02) 35%, rgba(0,0,0,0) 65%)',
-          mixBlendMode: 'screen',
-          transition: 'background-position 120ms ease-out',
-        }}
-      />
+      {/* Contenu */}
+      <div className="relative container mx-auto px-6 py-24 lg:py-32 z-20 text-center">
+        <h1 className="text-4xl lg:text-6xl font-bold mb-6 animate-fade-down">
+          Nos <span className="bg-blue-600/90 text-white font-bold px-2 rounded-md shadow">Services</span>
+        </h1>
 
-      <div className="relative container mx-auto px-6 py-20">
-        {/* carte verre translucide */}
-        <div className="mx-auto max-w-4xl text-center rounded-2xl bg-white/20 backdrop-blur-2xl ring-1 ring-white/20 p-8 md:p-12 shadow-xl">
-          <h1 className="relative inline-block mx-auto text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-none">
-            <span className="bg-gradient-to-r from-white via-blue-200 to-white bg-[length:200%_100%] bg-clip-text text-transparent animate-gradient-x tracking-tight">
-              Nos Services
-            </span>
-            <span
-              aria-hidden
-              className="pointer-events-none absolute inset-0 -z-10 blur-2xl opacity-30"
-              style={{
-                background:
-                  'radial-gradient(60% 60% at 50% 55%, rgba(96,165,250,0.35), rgba(59,130,246,0.15) 40%, rgba(0,0,0,0) 70%)',
-                filter: 'drop-shadow(0 0 25px rgba(96,165,250,0.35))',
-              }}
-            />
-          </h1>
-          <p className="text-lg md:text-xl text-blue-50">
-            Audits professionnels, tests d’intrusion éthiques et sensibilisation&nbsp;: révélez vos failles avant les attaquants.
-          </p>
-        </div>
+        <p className="text-lg lg:text-2xl text-blue-100 mb-10 animate-fade-down-2">
+          Audits professionnels, tests d’intrusion éthiques et sensibilisation&nbsp;: 
+          révélez vos failles avant les attaquants.
+        </p>
       </div>
     </section>
   )
 }
+
 
 function ServiceCard({ s }: { s: Service }) {
   return (

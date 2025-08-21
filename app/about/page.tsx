@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import { SocialIcon } from 'react-social-icons'
+import Link from "next/link";
+import { SocialIcon } from "react-social-icons";
 
 export default function About() {
   const values = [
@@ -29,7 +29,7 @@ export default function About() {
         "Chaque mission donne lieu à un rapport professionnel clair, avec recommandations et contre-audit si nécessaire.",
       icon: "📑",
     },
-  ]
+  ];
 
   const milestones = [
     {
@@ -50,54 +50,54 @@ export default function About() {
       description:
         "Montée en puissance des tests d’intrusion et des programmes de sensibilisation pour les PME régionales.",
     },
-  ]
+  ];
 
   return (
     <main className="min-h-screen bg-white">
-      {/* Hero avec fond animé */}
       <section
-        className="relative overflow-hidden text-white bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 py-20"
+        className="relative overflow-hidden text-white"
+        style={{
+          backgroundImage: "url('/citadel_abstract.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center 65%",
+          backgroundRepeat: "no-repeat",
+        }}
         onMouseMove={(e) => {
-          const el = e.currentTarget as HTMLElement
-          const rect = el.getBoundingClientRect()
-          el.style.setProperty('--mx', `${e.clientX - rect.left}px`)
-          el.style.setProperty('--my', `${e.clientY - rect.top}px`)
+          const el = e.currentTarget as HTMLElement;
+          const rect = el.getBoundingClientRect();
+          el.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+          el.style.setProperty("--my", `${e.clientY - rect.top}px`);
         }}
         onMouseLeave={(e) => {
-          const el = e.currentTarget as HTMLElement
-          el.style.setProperty('--mx', `-1000px`)
-          el.style.setProperty('--my', `-1000px`)
+          const el = e.currentTarget as HTMLElement;
+          el.style.setProperty("--mx", `-1000px`);
+          el.style.setProperty("--my", `-1000px`);
         }}
       >
-        {/* Fond animé mesh */}
+        {/* Voile + blur */}
         <div
-          aria-hidden
-          className="absolute -inset-[30%] -z-20 opacity-40 animate-spin-very-slow"
-          style={{
-            background:
-              'conic-gradient(from 0deg, rgba(30,64,175,0.35), rgba(59,130,246,0.35), rgba(99,102,241,0.35), rgba(2,132,199,0.35), rgba(30,64,175,0.35))',
-            animationDuration: '40s',
-            filter: 'blur(120px)',
-          }}
+          className="absolute inset-0 bg-grey/20 z-0 animate-bg-reveal"
+          style={{ backdropFilter: "blur(2px)" }}
         />
 
         {/* Reflet curseur */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 z-0"
+          className="pointer-events-none absolute inset-0 z-10"
           style={{
             background:
-              'radial-gradient(380px 380px at var(--mx, -1000px) var(--my, -1000px), rgba(255,255,255,0.035), rgba(255,255,255,0.02) 35%, rgba(0,0,0,0) 65%)',
-            mixBlendMode: 'screen',
-            transition: 'background-position 120ms ease-out',
+              "radial-gradient(380px 380px at var(--mx, -1000px) var(--my, -1000px), rgba(255,255,255,0.06), rgba(255,255,255,0.03) 35%, rgba(0,0,0,0) 95%)",
+            mixBlendMode: "screen",
+            transition: "background-position 120ms ease-out",
           }}
         />
 
-        <div className="container mx-auto px-6 text-center relative">
-          <h1 className="text-5xl md:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white via-blue-200 to-white bg-[length:200%_100%] bg-clip-text text-transparent animate-gradient-x">
+        {/* Contenu */}
+        <div className="relative container mx-auto px-6 py-20 md:py-28 z-20 text-center">
+          <h1 className="text-4xl md:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white via-blue-200 to-white bg-[length:200%_100%] bg-clip-text text-transparent animate-gradient-x animate-fade-down">
             À Propos de Citadel
           </h1>
-          <p className="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed animate-fade-down-2">
             CITADEL Cybersécurité, basée à Orléans, accompagne les TPE, PME et
             collectivités dans l’évaluation de leur sécurité numérique. Nous
             réalisons des audits complets, des tests d’intrusion et des sessions
@@ -135,7 +135,10 @@ export default function About() {
               </h3>
               <ul className="space-y-4 text-gray-700">
                 <li>✔️ Audits techniques et organisationnels complets</li>
-                <li>✔️ Tests d’intrusion réalistes en conditions proches du terrain</li>
+                <li>
+                  ✔️ Tests d’intrusion réalistes en conditions proches du
+                  terrain
+                </li>
                 <li>
                   ✔️ Rapports clairs et exploitables, destinés aux dirigeants
                   comme aux équipes techniques
@@ -152,7 +155,9 @@ export default function About() {
       {/* Values Section */}
       <section className="py-20 bg-slate-50">
         <div className="container mx-auto px-6 max-w-6xl text-center">
-          <h2 className="text-4xl font-bold text-slate-900 mb-12">Nos Valeurs</h2>
+          <h2 className="text-4xl font-bold text-slate-900 mb-12">
+            Nos Valeurs
+          </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, index) => (
               <div
@@ -199,15 +204,15 @@ export default function About() {
       <section
         className="relative py-16 overflow-hidden text-white bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800"
         onMouseMove={(e) => {
-          const el = e.currentTarget as HTMLElement
-          const rect = el.getBoundingClientRect()
-          el.style.setProperty('--mx', `${e.clientX - rect.left}px`)
-          el.style.setProperty('--my', `${e.clientY - rect.top}px`)
+          const el = e.currentTarget as HTMLElement;
+          const rect = el.getBoundingClientRect();
+          el.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+          el.style.setProperty("--my", `${e.clientY - rect.top}px`);
         }}
         onMouseLeave={(e) => {
-          const el = e.currentTarget as HTMLElement
-          el.style.setProperty('--mx', `-1000px`)
-          el.style.setProperty('--my', `-1000px`)
+          const el = e.currentTarget as HTMLElement;
+          el.style.setProperty("--mx", `-1000px`);
+          el.style.setProperty("--my", `-1000px`);
         }}
       >
         {/* Fond animé */}
@@ -216,9 +221,9 @@ export default function About() {
           className="absolute -inset-[30%] -z-20 opacity-40 animate-spin-very-slow"
           style={{
             background:
-              'conic-gradient(from 0deg, rgba(30,64,175,0.35), rgba(59,130,246,0.35), rgba(99,102,241,0.35), rgba(2,132,199,0.35), rgba(30,64,175,0.35))',
-            animationDuration: '40s',
-            filter: 'blur(120px)',
+              "conic-gradient(from 0deg, rgba(30,64,175,0.35), rgba(59,130,246,0.35), rgba(99,102,241,0.35), rgba(2,132,199,0.35), rgba(30,64,175,0.35))",
+            animationDuration: "40s",
+            filter: "blur(120px)",
           }}
         />
         {/* Reflet curseur */}
@@ -227,9 +232,9 @@ export default function About() {
           className="pointer-events-none absolute inset-0 z-0"
           style={{
             background:
-              'radial-gradient(380px 380px at var(--mx, -1000px) var(--my, -1000px), rgba(255,255,255,0.04), rgba(255,255,255,0.02) 35%, rgba(0,0,0,0) 65%)',
-            mixBlendMode: 'screen',
-            transition: 'background-position 120ms ease-out',
+              "radial-gradient(380px 380px at var(--mx, -1000px) var(--my, -1000px), rgba(255,255,255,0.04), rgba(255,255,255,0.02) 35%, rgba(0,0,0,0) 65%)",
+            mixBlendMode: "screen",
+            transition: "background-position 120ms ease-out",
           }}
         />
 
@@ -292,5 +297,5 @@ export default function About() {
         </div>
       </section>
     </main>
-  )
+  );
 }
