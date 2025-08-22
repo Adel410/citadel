@@ -1,9 +1,17 @@
 "use client";
 
-import Link from "next/link";
-import { SocialIcon } from "react-social-icons";
+import FinalCTA from "../components/FinalCTA"
+import Head from "next/head";
 
 export default function InfosPratiques() {
+  <Head>
+  <title>Infos pratiques | CITADEL Cybersécurité</title>
+  <meta name="description" content="Toutes les informations pratiques pour travailler avec CITADEL Cybersécurité : localisation, clients, approche et FAQ." />
+  <meta property="og:title" content="Infos pratiques | CITADEL Cybersécurité" />
+  <meta property="og:description" content="FAQ, localisation, clients et méthodologie : toutes les infos pour collaborer avec CITADEL Cybersécurité." />
+  <meta property="og:image" content="/og-image.jpg" />
+</Head>
+
   const contactInfo = {
     phone: "+33 7 68 10 90 40",
     email: "nicolas.bellencontre@outlook.fr",
@@ -226,103 +234,7 @@ export default function InfosPratiques() {
           </div>
         </div>
       </section>
-
-      {/* CTA final animé (même DA que home/services) */}
-      <section
-        className="relative py-16 overflow-hidden text-white bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800"
-        onMouseMove={(e) => {
-          const el = e.currentTarget as HTMLElement;
-          const rect = el.getBoundingClientRect();
-          el.style.setProperty("--mx", `${e.clientX - rect.left}px`);
-          el.style.setProperty("--my", `${e.clientY - rect.top}px`);
-        }}
-        onMouseLeave={(e) => {
-          const el = e.currentTarget as HTMLElement;
-          el.style.setProperty("--mx", `-1000px`);
-          el.style.setProperty("--my", `-1000px`);
-        }}
-      >
-        {/* Fond mesh */}
-        <div
-          aria-hidden
-          className="absolute -inset-[30%] -z-20 opacity-40 animate-spin-very-slow"
-          style={{
-            background:
-              "conic-gradient(from 0deg, rgba(30,64,175,0.35), rgba(59,130,246,0.35), rgba(99,102,241,0.35), rgba(2,132,199,0.35), rgba(30,64,175,0.35))",
-            animationDuration: "40s",
-            filter: "blur(120px)",
-          }}
-        />
-        {/* Reflet curseur */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 z-0"
-          style={{
-            background:
-              "radial-gradient(380px 380px at var(--mx, -1000px) var(--my, -1000px), rgba(255,255,255,0.04), rgba(255,255,255,0.02) 35%, rgba(0,0,0,0) 65%)",
-            mixBlendMode: "screen",
-            transition: "background-position 120ms ease-out",
-          }}
-        />
-
-        <div className="relative container mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-extrabold mb-6 bg-gradient-to-r from-white via-blue-200 to-white bg-[length:200%_100%] bg-clip-text text-transparent animate-gradient-x">
-            Prêt à tester vos défenses ?
-          </h2>
-          <p className="text-blue-100 mb-8">
-            Audit, pentest, sensibilisation — priorité à l’impact et aux actions
-            concrètes.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/services"
-              className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-lg transition-all duration-300 border border-white/30"
-            >
-              Parcourir les services
-            </Link>
-            <Link
-              href="/contact"
-              className="px-8 py-4 bg-white text-blue-700 font-bold rounded-lg hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-xl"
-            >
-              Nous contacter
-            </Link>
-          </div>
-
-          <div className="flex justify-center items-center gap-6 mt-10">
-            <a
-              href="https://www.linkedin.com/company/citadel-cybers%C3%A9curit%C3%A9/about/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-lg hover:bg-white/20 transition"
-            >
-              <SocialIcon
-                url="https://www.linkedin.com/company/citadel-cybers%C3%A9curit%C3%A9/about/"
-                fgColor="#ffffff"
-                bgColor="transparent"
-                style={{ height: 30, width: 30 }}
-              />
-              <span className="text-white text-sm font-medium">CITADEL</span>
-            </a>
-            <a
-              href="https://linkedin.com/in/nicolas-bellencontre-287427303"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-lg hover:bg-white/20 transition"
-            >
-              <SocialIcon
-                url="https://linkedin.com/in/nicolas-bellencontre-287427303"
-                fgColor="#ffffff"
-                bgColor="transparent"
-                style={{ height: 30, width: 30 }}
-              />
-              <span className="text-white text-sm font-medium">
-                Nicolas Bellencontre
-              </span>
-            </a>
-          </div>
-        </div>
-      </section>
+      <FinalCTA />
     </main>
   );
 }

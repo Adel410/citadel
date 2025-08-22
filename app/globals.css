@@ -21,18 +21,31 @@ body {
 }
 
 @layer utilities {
+  /* Animation fade-down */
   @keyframes fade-down {
     from { opacity: 0; transform: translateY(-20px); }
     to { opacity: 1; transform: translateY(0); }
   }
-  .animate-fade-down { animation: fade-down 1.2s ease-out forwards; }
-  .animate-fade-down-2 { animation: fade-down 1.6s ease-out forwards; }
-  .animate-fade-down-3 { animation: fade-down 2s ease-out forwards; }
+  .animate-fade-down {
+    animation: fade-down 1.2s ease-out both;
+    will-change: opacity, transform;
+  }
+  .animate-fade-down-2 {
+    animation: fade-down 1.6s ease-out both;
+    will-change: opacity, transform;
+  }
+  .animate-fade-down-3 {
+    animation: fade-down 2s ease-out both;
+    will-change: opacity, transform;
+  }
 
+  /* Animation background reveal */
   @keyframes bg-reveal {
     from { opacity: 0; transform: translateY(-20px); filter: blur(10px); }
     to { opacity: 1; transform: translateY(0); filter: blur(2px); }
   }
-  .animate-bg-reveal { animation: bg-reveal 1.8s ease-out forwards; }
+  .animate-bg-reveal {
+    animation: bg-reveal 1.8s ease-out both;
+    will-change: opacity, transform, filter;
+  }
 }
-

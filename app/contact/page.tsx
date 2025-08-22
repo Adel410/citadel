@@ -2,8 +2,18 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Head from "next/head";
 
 export default function Contact() {
+
+  <Head>
+  <title>Contact | CITADEL Cybersécurité</title>
+  <meta name="description" content="Contactez CITADEL Cybersécurité pour vos besoins en audit, test d’intrusion ou sensibilisation." />
+  <meta property="og:title" content="Contact | CITADEL Cybersécurité" />
+  <meta property="og:description" content="Parlons de vos besoins en cybersécurité : audit, pentest, sensibilisation. Basés à Orléans, disponibles partout en France." />
+  <meta property="og:image" content="/og-image.jpg" />
+</Head>
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -417,7 +427,7 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* CTA final (inchangé) */}
+      {/* CTA final*/}
       <section className="py-16 bg-slate-50">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold text-slate-900 mb-6">
